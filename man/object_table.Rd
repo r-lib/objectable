@@ -22,9 +22,6 @@ or failure. Affects the operation of [rm()].}
 
 \item{names}{`function() {}`. Should return character vector.}
 
-\item{attach, detach}{`function() {}`. Called when environment is attached
-or detached. Can be used to run set up and tear down code}
-
 \item{parent_env}{This environment is used to implement default operations
 for all other arguents.}
 }

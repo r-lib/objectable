@@ -15,8 +15,6 @@ NULL
 #' @param names `function() {}`. Should return character vector.
 #' @param unbind `function(name) {}`. Should return logical indicating success
 #'    or failure. Affects the operation of [rm()].
-#' @param attach,detach `function() {}`. Called when environment is attached
-#'   or detached. Can be used to run set up and tear down code
 #' @param parent_env This environment is used to implement default operations
 #'   for all other arguents.
 #' @export
@@ -43,8 +41,8 @@ object_table <- function(
     has = has,
     unbind = unbind,
     names = names,
-    attach = attach,
-    detach = detach,
+    attach = NULL,
+    detach = NULL,
     parent_env = parent_env
   )
 
