@@ -15,3 +15,41 @@ test_that("missing functions pass through to underlying env", {
   rm(list = "b", envir = ot)
   expect_false(exists("b", envir = ot))
 })
+
+test_that("can override get", {
+  ot <- object_table(get = function(name) nchar(name))
+  expect_equal(ot$a, 1)
+  expect_equal(ot$abcd, 4)
+})
+
+test_that("can override set", {
+  val <- NULL
+  ot <- object_table(set = function(name, value) val <<- value)
+
+  ot$x <- 1234
+  expect_equal(val, 1234)
+  expect_false(exists("x", envir = ot))
+})
+
+test_that("can override names", {
+  ot <- object_table(names = function() letters)
+  expect_equal(ls(envir = ot), letters)
+})
+
+test_that("can overide has", {
+  ot <- object_table(has = function(name) TRUE)
+  expect_true(exists("qwertyuiop", envir = ot))
+})
+
+test_that("errors propagate", {
+  ot <- object_table(get = function(name) {
+    if (name == "a") {
+      1
+    } else {
+      stop("!")
+    }
+  })
+
+  expect_equal(ot$a, 1)
+  expect_error(ot$b, "!")
+})
