@@ -1,12 +1,16 @@
 Package: objectable
-Title: What the Package Does (one line, title case)
+Title: Create "Object Tables" with R Functions
+Description: Experiment with object tables using pure R code. Object tables
+    allow you to create custom environment that respond to `get()`, `ls()`,
+    `assign()`, and `rm()` in any way you choose. This package is designed
+    for rapid prototyping: rather than using this package in production,
+    you should write your own C code to ensure optimal performance.
 Version: 0.0.0.9000
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", role = c("aut", "cre")),
     person("RStudio", role = "cph")
   )
-Description: What the package does (one paragraph).
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.1.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
