@@ -22,7 +22,7 @@ SEXP ot_fun_get(R_ObjectTable *ot, Component action) {
 }
 
 bool ot_fun_has(R_ObjectTable *ot, Component action) {
-  return Rf_isNull(ot_fun_get(ot, action));
+  return !Rf_isNull(ot_fun_get(ot, action));
 }
 
 bool as_flag(SEXP x, const char* name) {
@@ -61,8 +61,7 @@ SEXP ot_fun_call_name(R_ObjectTable *ot, Component action, const char* const nam
 }
 
 SEXP ot_parent(R_ObjectTable *ot) {
-  SEXP obj = (SEXP) ot->privateData;
-  return VECTOR_ELT(obj, (int) OTL_PARENT_ENV);
+  return VECTOR_ELT(ot->privateData, (int) OTL_PARENT_ENV);
 };
 
 // Returns an environment without frame or hashtab
@@ -97,7 +96,7 @@ void ot_detach(R_ObjectTable *ot) {
 Rboolean ot_has(const char* const name, Rboolean *canCache, R_ObjectTable *ot) {
   if (!ot_fun_has(ot, OTL_HAS)) {
     SEXP val = Rf_findVarInFrame3(ot_parent(ot), Rf_install(name), false);
-    return val == R_UnboundValue;
+    return val != R_UnboundValue;
   } else {
     SEXP val = ot_fun_call_name(ot, OTL_HAS, name);
     return as_flag(val, "has()");
@@ -143,7 +142,7 @@ SEXP ot_set(const char* const name, SEXP value, R_ObjectTable *ot) {
 // Create object table -------------------------------------------------
 
 SEXP new_object_table(SEXP x) {
-  if (!Rf_isList(x) || Rf_length(x) != 8) {
+  if (!Rf_isNewList(x) || Rf_length(x) != 8) {
     Rf_errorcall(R_NilValue, "Invalid input");
   }
 
@@ -158,6 +157,7 @@ SEXP new_object_table(SEXP x) {
 
   ot->canCache = false;
   ot->active = true;
+  ot->privateData = x;
 
   SEXP env_ptr = PROTECT(R_MakeExternalPtr(
     ot,
