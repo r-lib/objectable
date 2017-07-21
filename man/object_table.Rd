@@ -5,7 +5,7 @@
 \title{Create an object table}
 \usage{
 object_table(get = NULL, set = NULL, has = NULL, unbind = NULL,
-  names = NULL, attach = NULL, detach = NULL, parent_env = emptyenv())
+  names = NULL, parent_env = emptyenv())
 }
 \arguments{
 \item{get}{`function(name) {}`. Can return any type of object. Affects

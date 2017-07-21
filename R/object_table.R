@@ -28,8 +28,6 @@ object_table <- function(
                          has = NULL,
                          unbind = NULL,
                          names = NULL,
-                         attach = NULL,
-                         detach = NULL,
                          parent_env = emptyenv()
                          ) {
 
