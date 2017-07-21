@@ -3,7 +3,7 @@
 objectable
 ==========
 
-[![Travis-CI Build Status](https://travis-ci.org/r-lib/objectable.svg?branch=master)](https://travis-ci.org/r-lib/objectable) [![Coverage Status](https://img.shields.io/codecov/c/github/r-lib/objectable/master.svg)](https://codecov.io/github/r-lib/objectable?branch=master)
+[![Travis-CI Build Status](https://travis-ci.org/r-lib/objectable.svg?branch=master)](https://travis-ci.org/r-lib/objectable) [![codecov](https://codecov.io/gh/r-lib/objectable/branch/master/graph/badge.svg)](https://codecov.io/gh/r-lib/objectable)
 
 The goal of objectable is to make it easy to experiment with object tables using only R code. Object tables allow you to make "custom" environments where you can control the behaviour of `get()`, `assign()`, `rm()` and `ls()` using your own functions.
 
