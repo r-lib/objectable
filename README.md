@@ -16,3 +16,43 @@ You can install objectable from github with:
 # install.packages("devtools")
 devtools::install_github("r-lib/objectable")
 ```
+
+Example
+-------
+
+``` r
+library(objectable)
+
+# Make a super weird enviornment
+ot <- object_table(
+  get = function(name) runif(nchar(name)),
+  has = function(name) TRUE
+)
+ot$a
+#> [1] 0.08075014
+ot$a
+#> [1] 0.834333
+ot$abc
+#> [1] 0.600760886 0.157208442 0.007399441
+```
+
+``` r
+# Change behaviour of missing symbols
+env <- new.env()
+ot <- object_table(
+  get = function(name) {
+    if (!exists(name, envir = env)) {
+      stop("`", name, "` does not exist", call. = FALSE)
+    } else {
+      env[[name]]
+    }
+  },
+  parent_env = env
+)
+
+ot$a <- 10
+ot$a
+#> [1] 10
+ot$b
+#> Error: `b` does not exist
+```
