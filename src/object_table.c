@@ -162,7 +162,7 @@ SEXP new_object_table(SEXP x) {
   SEXP env_ptr = PROTECT(R_MakeExternalPtr(
     ot,
     Rf_install("UserDefinedDatabase"),
-    R_NilValue
+    x
   ));
 
   SEXP env = PROTECT(bare_environment(R_EmptyEnv));
