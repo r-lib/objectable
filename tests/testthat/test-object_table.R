@@ -51,6 +51,11 @@ test_that("can overide has", {
   expect_true(exists("qwertyuiop", envir = ot))
 })
 
+test_that("has must return logical", {
+  ot <- object_table(has = function(name) "x")
+  expect_error(exists("x", envir = ot), "logical vector")
+})
+
 test_that("can overide unbind", {
   unbound <- FALSE
   ot <- object_table(unbind = function(name) unbound <<- TRUE)
