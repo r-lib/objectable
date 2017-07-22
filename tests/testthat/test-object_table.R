@@ -10,7 +10,7 @@ test_that("missing functions pass through to underlying env", {
   expect_equal(ot$a, 10)
 
   expect_false(exists("b", envir = ot))
-  env$b <- 20
+  ot$b <- 20
   expect_true(exists("b", envir = ot))
   rm(list = "b", envir = ot)
   expect_false(exists("b", envir = ot))
