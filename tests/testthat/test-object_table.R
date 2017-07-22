@@ -51,6 +51,13 @@ test_that("can overide has", {
   expect_true(exists("qwertyuiop", envir = ot))
 })
 
+test_that("can overide unbind", {
+  unbound <- FALSE
+  ot <- object_table(unbind = function(name) unbound <<- TRUE)
+  rm(list = "a", envir = ot)
+  expect_true(unbound)
+})
+
 test_that("errors propagate", {
   ot <- object_table(get = function(name) {
     if (name == "a") {
