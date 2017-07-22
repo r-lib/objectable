@@ -16,6 +16,16 @@ test_that("missing functions pass through to underlying env", {
   expect_false(exists("b", envir = ot))
 })
 
+test_that("proxied get uses inheritance", {
+  env1 <- new.env(parent = emptyenv())
+  env1$a <- 10
+
+  env2 <- new.env(parent = env1)
+  ot <- object_table(parent_env = env2)
+
+  expect_equal(get("a", envir = ot), 10)
+})
+
 test_that("can override get", {
   ot <- object_table(get = function(name) nchar(name))
   expect_equal(ot$a, 1)

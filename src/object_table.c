@@ -105,7 +105,7 @@ Rboolean ot_has(const char* const name, Rboolean *canCache, R_ObjectTable *ot) {
 
 SEXP ot_get(const char* const name, Rboolean *canCache, R_ObjectTable *ot) {
   if (!ot_fun_has(ot, OTL_GET)) {
-    return Rf_findVarInFrame(ot_parent(ot), Rf_install(name));
+    return Rf_findVar(Rf_install(name), ot_parent(ot));
   } else {
     return ot_fun_call_name(ot, OTL_GET, name);
   }
