@@ -81,18 +81,6 @@ SEXP ot_names(R_ObjectTable *ot) {
   }
 }
 
-void ot_attach(R_ObjectTable *ot) {
-  if (ot_fun_has(ot, OTL_ATTACH)) {
-    ot_fun_call_empty(ot, OTL_ATTACH);
-  }
-}
-
-void ot_detach(R_ObjectTable *ot) {
-  if (ot_fun_has(ot, OTL_DETACH)) {
-    ot_fun_call_empty(ot, OTL_DETACH);
-  }
-}
-
 Rboolean ot_has(const char* const name, Rboolean *canCache, R_ObjectTable *ot) {
   if (!ot_fun_has(ot, OTL_HAS)) {
     SEXP val = Rf_findVarInFrame3(ot_parent(ot), Rf_install(name), false);
@@ -152,8 +140,6 @@ SEXP new_object_table(SEXP x) {
   ot->remove =   &ot_unbind;
   ot->assign =   &ot_set;
   ot->objects =  &ot_names;
-  ot->onAttach = &ot_attach;
-  ot->onDetach = &ot_detach;
 
   ot->canCache = false;
   ot->active = true;
