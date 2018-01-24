@@ -25,7 +25,7 @@ Example
 ``` r
 library(objectable)
 
-# Make a super weird enviornment
+# Make a super weird environment
 ot <- object_table(
   get = function(name) runif(nchar(name)),
   has = function(name) TRUE
